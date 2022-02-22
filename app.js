@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(cors())
 
 // Connecting to Database
-mongoose.connect()
+// mongoose.connect()
 
 // Routing for issue
 const issue = require('./routes/issue')
