@@ -1,0 +1,22 @@
+Mendaftarkan diri -> Bisa Login
+
+Login -> menuju Dashboard
+
+Di dashboard :
+
+> menambah issue
+> menghapus issue
+> mengedit issue
+
+melakukan filter dan sorting berdasarkan :
+
+> sorting berdasarkan tanggal (DESC dan ASC)
+> filter berdasarkan tags
+> filter berdasarkan range tanggal 
+
+
+PR : 
+1. Mekanisme regristrasi menggunakan email (
+						nodemailer untuk email handler 
+						encrypt modul untuk password
+2. Mekanisme assign tags
