@@ -9,30 +9,47 @@ const Users = require('../models/users')
 
 // To the create user form
 router.get('/create', (req, res) => {
-    res.json({ msg: 'halaman form untuk membuat users' })
+    res.render('register', {
+        title: 'Issue Tracker - Create User',
+        layout: 'layouts/main-layout',
+        error: req.flash('error')
+    })
 })
 
 // To the login form
 router.get('/login', (req, res) => {
-    res.json({ msg: "halaman login" })
+    res.render('login', {
+        error: req.flash('error'),
+        title: 'Issue Tracker - Login',
+        layout: 'layouts/main-layout',
+    })
 })
 
 // Logout
 router.get('/logout', (req, res) => {
-    res.clearCookie()
+    res.clearCookie('username')
+    res.clearCookie('password')
+    console.log('cookie clear')
     res.redirect('/users/login')
 })
 
 // Create new user
-router.post('/create', (req, res) => {
+router.post('/create', async (req, res) => {
 
-    let usernmae = req.body.username
+    console.log(req.body)
+
+    let username = req.body.username
     let email = req.body.email
     let password = req.body.password
 
-    let result = createUser(usernmae, email, password)
+    let result = await createUser(username, email, password)
 
-    if (result === true) res.redirect('/users/login')
+    console.log(result)
+
+    if (result === true) {
+        req.flash('success', "Successfully create a user")
+        res.redirect('/users/login')
+    }
     else {
 
         //Error message
@@ -46,13 +63,17 @@ router.post('/create', (req, res) => {
 
 // Login
 router.post('/login', async (req, res) => {
+    console.log(req.body)
+
     let email = req.body.username
     let password = req.body.password
 
-    const result = login(email, password)
+    const result = await login(email, password)
+
+    console.log(result)
 
     if (result === true) {
-        res.cookie('email', email, { secure: true, httpOnly: true, maxAge: 3000000 })
+        res.cookie('username', email, { secure: true, httpOnly: true, maxAge: 3000000 })
         res.cookie('password', password, { secure: true, httpOnly: true, maxAge: 3000000 })
         res.redirect('/')
     }

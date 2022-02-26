@@ -7,7 +7,10 @@ const Issue = require('../models/issue')
 
 // To the issue form
 router.get('/', (req, res) => {
-    res.json({ msg: 'mendaftarkan issue' })
+    res.render('add_issue', {
+        title: 'Issue Tracker - Add Issue',
+        layout: 'layouts/main-layout'
+    })
 })
 
 // To the edit form

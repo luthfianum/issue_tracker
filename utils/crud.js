@@ -40,7 +40,9 @@ async function login(email, password) {
 
     if (user == null) return "Cannot find the user"
 
-    let check = bcrypt.compare(password, user.password)
+    console.log(user)
+    console.log('checking a password')
+    let check = bcrypt.compareSync(password, user.password)
 
     if (!check) return "Wrong password"
 

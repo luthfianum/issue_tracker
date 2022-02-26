@@ -41,21 +41,35 @@ app.use('/issue', issue)
 
 // Routing for users
 const users = require('./routes/users')
+const Issue = require('./models/issue')
 app.use('/users', users)
 
 // Home page
 app.get('/', async (req, res) => {
+    console.log(req.cookies)
     if (req.cookies.username !== undefined && req.cookies.password !== undefined) {
         const user = await Users.findOne({ username: req.cookies.username })
+        console.log(user)
         if (user != null) {
             let check = bcrypt.compareSync(req.cookies.password, user.password)
+
+            console.log(check)
+
             if (check) {
 
                 // List of issue
                 const issues = await getIssue(user.username)
                 // List of issue
 
-                res.json({ msg: 'halaman home' })
+                console.log(issues)
+
+                res.render('dashboard', {
+                    issues: issues,
+                    title: 'Issue Tracker',
+                    layout: 'layouts/main-layout',
+                    success: req.flash('success'),
+                    error: req.flash('error')
+                })
             }
         }
     }
