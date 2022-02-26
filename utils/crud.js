@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt')
 const validator = require('validator').default
-const { default: isEmail } = require('validator/lib/isemail')
 
 // Models
 const Issue = require('../models/issue')
@@ -48,22 +47,23 @@ async function login(email, password) {
     return true
 }
 
-async function getIssue() {
-    const result = await Issue.find()
+async function getIssue(username) {
+    const result = await Issue.find({ username: username })
 
     return result
 }
 
-async function createIssue(title, description, tags) {
+async function createIssue(username, title, description, tag) {
+    const input = {
+        username: username,
+        title: title,
+        description: description,
+        tag: tag,
+        createdAt: new Date(),
+        lastUpdate: new Date()
+    }
 
+    const wait = await Issue.insertMany(input)
 }
 
-async function editIssue(tittle, description, tags) {
-
-}
-
-async function deleteIssue(title, description, tags) {
-
-}
-
-module.exports = { createUser, login, getIssue, createIssue, editIssue, deleteIssue }
+module.exports = { createUser, login, getIssue, createIssue }

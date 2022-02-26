@@ -3,13 +3,35 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const expressLayouts = require('express-ejs-layouts')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const flash = require('connect-flash')
+const bcrypt = require('bcrypt')
+const { getIssue } = require('./utils/crud')
+
+const Users = require('./models/users')
 
 const app = express()
 
+app.set('view engine', 'ejs')
+
 app.use(express.urlencoded({ extended: true }))
+app.use(expressLayouts)
+app.use(express.static('public'))
 app.use(express.json())
 app.use(cors())
 
+app.use(cookieParser('secret'))
+app.use(
+    session({
+        cookie: { maxAge: 6000 },
+        secret: 'secret',
+        resave: true,
+        saveUninitialized: true
+    })
+)
+app.use(flash())
 // Connecting to Database
 // mongoose.connect()
 
@@ -21,10 +43,35 @@ app.use('/issue', issue)
 const users = require('./routes/users')
 app.use('/users', users)
 
-app.get('/', (req, res) => {
-    res.json({ msg: 'halaman home' })
+// Home page
+app.get('/', async (req, res) => {
+    if (req.cookies.username !== undefined && req.cookies.password !== undefined) {
+        const user = await Users.findOne({ username: req.cookies.username })
+        if (user != null) {
+            let check = bcrypt.compareSync(req.cookies.password, user.password)
+            if (check) {
+
+                // List of issue
+                const issues = await getIssue(user.username)
+                // List of issue
+
+                res.json({ msg: 'halaman home' })
+            }
+        }
+    }
+    else {
+        res.redirect('/users/login')
+    }
 })
+
+// app.get('/asd', (req, res) => {
+//     res.json(req.flash('msg'))
+// })
 
 app.listen(3000, () => {
     console.log("App is listening to Port 3000")
 })
+
+
+//error : req.flash('msg')
+//success : req.flash('success')
