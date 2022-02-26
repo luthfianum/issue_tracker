@@ -30,6 +30,15 @@ router.get('/details/:id', async (req, res) => {
     res.json({ msg: 'details issue' })
 })
 
+router.get('/delete/:id', async (req, res) => {
+
+    const wait = await Issue.findByIdAndRemove(req.params.id)
+
+    req.flash('success', 'Successfully deleted an issue')
+
+    res.redirect('/')
+})
+
 // Add new issue
 router.post('/', async (req, res) => {
 

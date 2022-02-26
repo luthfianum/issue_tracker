@@ -17,6 +17,12 @@ router.get('/login', (req, res) => {
     res.json({ msg: "halaman login" })
 })
 
+// Logout
+router.get('/logout', (req, res) => {
+    res.clearCookie()
+    res.redirect('/users/login')
+})
+
 // Create new user
 router.post('/create', (req, res) => {
 

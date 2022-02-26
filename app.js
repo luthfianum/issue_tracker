@@ -33,7 +33,7 @@ app.use(
 )
 app.use(flash())
 // Connecting to Database
-// mongoose.connect()
+mongoose.connect('mongodb://localhost:27017/issueTracker')
 
 // Routing for issue
 const issue = require('./routes/issue')
@@ -75,3 +75,6 @@ app.listen(3000, () => {
 
 //error : req.flash('msg')
 //success : req.flash('success')
+
+// if(error)
+// if(success) 
