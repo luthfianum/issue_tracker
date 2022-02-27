@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
     let description = req.body.description
     let tag = req.body.tag
 
-    let wait = await createIssue(title, description, tag)
+    let wait = await createIssue(req.cookies.username, title, description, tag)
 
     req.flash('success', 'Succesfully create an issue')
 

@@ -113,7 +113,7 @@
         />
       </div>
     </div>
-    <button
+    <a
       type="button"
       href="/issue/"
       class="text-white bg-primary hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 m-2 text-center inline-flex items-center"
@@ -133,7 +133,7 @@
           d="M12 6v6m0 0v6m0-6h6m-6 0H6"
         ></path>
       </svg>
-    </button>
+    </a>
   </div>
   <!-- Filtering End -->
 
@@ -177,7 +177,7 @@
                 <td
                   class="py-3 px-6 text-sm font-medium text-gray-900 whitespace-nowrap"
                 >
-                  <%= item.title %>
+                  <%= issue.title %>
                 </td>
                 <td
                   class="py-3 px-6 text-sm font-medium text-gray-500 whitespace-nowrap"
@@ -198,9 +198,9 @@
                 <td
                   class="py-3 px-6 text-sm font-medium text-right whitespace-nowrap flex justify-center"
                 >
-                  <button
+                  <a
                     type="button"
-                    href="/delete/<%= issue._id %>"
+                    href="issue//delete/<%= issue._id %>"
                     class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
                   >
                     <svg
@@ -217,7 +217,7 @@
                         d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                       ></path>
                     </svg>
-                  </button>
+                  </a>
                   <button
                     type="button"
                     class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
@@ -353,7 +353,7 @@
                 disabled
                 readonly
               >
-<%= item.description %></textarea
+<%= issue.description %></textarea
               >
             </div>
             <div class="flex justify-center items-center">
@@ -373,5 +373,5 @@
   <!-- Content End -->
 
   <!-- Js -->
-  <script src="js/dashboard.js"></script>
+  <!-- <script src="js/dashboard.js"></script> -->
 </body>
